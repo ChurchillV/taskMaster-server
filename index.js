@@ -8,15 +8,12 @@ const authRoutes = require('./Routes/auth');
 const passportSetup = require('./passport')
 
 
-
 // Mongoose import
 const mongoose = require('mongoose');
 
 
-
 // Importing environment variables
 const { MONGO_URL } = process.env;
-
 
 
 // Passport authentication seession initialization
@@ -40,7 +37,6 @@ app.use(
 );
 
 
-
 app.listen(2099, () => {
     console.log('TaskMaster is running on Port 2099');
 })
@@ -52,6 +48,5 @@ mongoose
     .catch((err) => console.error(err));
 
 
-    
 // Set up routes
 app.use('/auth', authRoutes);
