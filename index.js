@@ -37,6 +37,10 @@ app.use(
 );
 
 
+// For parsing api requests
+app.use(express.json());
+
+
 app.listen(2099, () => {
     console.log('TaskMaster is running on Port 2099');
 })
@@ -50,3 +54,4 @@ mongoose
 
 // Set up routes
 app.use('/auth', authRoutes);
+app.use('/', authRoutes);
