@@ -3,8 +3,9 @@ const User = require('../../Models/User');
 
 module.exports.CreateProject = async(req, res) => {
     try {
-        const userId = req.params.userid;
+        
         const { title, description, summary } = req.body;
+        const userId = req.params.userid;
 
         const user = await User.findOne({ _id : userId });
 

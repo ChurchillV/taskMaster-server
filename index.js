@@ -9,7 +9,8 @@ const passportSetup = require('./passport')
 
 // Imports for routes
 const authRoutes = require('./Routes/auth');
-const projectRoutes = require('./Routes/ProjectRoutes/projects');
+const projectRoutes = require('./Routes/projects');
+const taskRoutes = require('./Routes/tasks');
 
 // Mongoose import
 const mongoose = require('mongoose');
@@ -59,3 +60,4 @@ mongoose
 app.use('/auth', authRoutes);
 app.use('/', authRoutes);
 app.use('/', projectRoutes);
+app.use('/', taskRoutes);
