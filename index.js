@@ -4,9 +4,12 @@ require('dotenv').config();
 const cors = require('cors');
 const passport = require('passport');
 const cookieSession = require('cookie-session');
-const authRoutes = require('./Routes/auth');
 const passportSetup = require('./passport')
 
+
+// Imports for routes
+const authRoutes = require('./Routes/auth');
+const projectRoutes = require('./Routes/ProjectRoutes/projects');
 
 // Mongoose import
 const mongoose = require('mongoose');
@@ -55,3 +58,4 @@ mongoose
 // Set up routes
 app.use('/auth', authRoutes);
 app.use('/', authRoutes);
+app.use('/', projectRoutes);
