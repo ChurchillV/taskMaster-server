@@ -13,10 +13,12 @@ module.exports.Signup = async(req, res, next) => {
                       .json({message : "Invalid email"});
         };
 
+        const hashedPassword = await bcrypt.hash(password, 12);
+
         const user = await User.create({
             username : username,
             email : email,
-            password : password
+            password : hashedPassword
         });
 
         const token = createSecretToken(user._id);

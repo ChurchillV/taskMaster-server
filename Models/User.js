@@ -9,10 +9,6 @@ const userSchema = new mongoose.Schema({
     updatedAt : { type : Date, default : Date.now()}
 })
 
-// Hash password before saving
-userSchema.pre("save", async function() {
-    this.password = bcrypt.hash(this.password, 12);
-})
 
 const User = mongoose.model('User', userSchema);
 
