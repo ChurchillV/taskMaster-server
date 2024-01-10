@@ -58,6 +58,5 @@ mongoose
 
 // Set up routes
 app.use('/auth', authRoutes);
-app.use('/', authRoutes);
 app.use('/project', projectRoutes);
-app.use('/', taskRoutes);
+app.use('/task', taskRoutes);

@@ -14,7 +14,7 @@ router.get('/logout', (req, res) => {
 })
 
 // auth with google
-router.get('auth/google', passport.authenticate("google"));
+router.get('/google', passport.authenticate("google"));
 
 // login success
 router.get("auth/login/success", (req, res) => {
@@ -29,7 +29,7 @@ router.get("auth/login/success", (req, res) => {
 	}
 });
     
-router.get('auth/google/callback/', (req, res) => {
+router.get('/google/callback/', (req, res) => {
     res.send('Redirect successful');
 })
 
