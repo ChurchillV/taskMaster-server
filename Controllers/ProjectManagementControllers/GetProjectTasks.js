@@ -28,14 +28,27 @@ module.exports.GetProjectTasks = async(req, res) => {
                 ]
         });
 
+        const todoTasks = allProjectTasks
+                                .filter(task => task.status === "To Do");
+        
+        const inProgressTasks = allProjectTasks
+                                .filter(task => task.status === "In Progress");
+
+        const doneTasks = allProjectTasks
+                                .filter(task => task.status === "Done");
+
         res.status(200)
            .json({
                 message : `Tasks for project ${projectId} returned successsfully`,
                 success : true,
                 tasks : allProjectTasks,
+                tasksToDo : todoTasks,
+                tasksInProgress : inProgressTasks,
+                tasksDone : doneTasks,
            })
 
     } catch(error) {
         console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }

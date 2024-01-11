@@ -36,6 +36,7 @@ module.exports.Signup = async(req, res, next) => {
 
     } catch(error) {
         console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
 
@@ -73,5 +74,6 @@ module.exports.Login = async(req, res, next) => {
 
     } catch(error) {
         console.log(error);
+        res.status(500).json({ message: "Internal Server Error" });
     }
 }
