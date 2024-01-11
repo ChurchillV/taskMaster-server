@@ -43,7 +43,7 @@ module.exports.CreateTask = async(req, res) => {
 
         res.status(200)
         .json({
-             message : "Project created successfully",
+             message : "Task created successfully",
              success : true,
              newTask,
         });
