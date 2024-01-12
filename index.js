@@ -60,3 +60,6 @@ mongoose
 app.use('/auth', authRoutes);
 app.use('/project', projectRoutes);
 app.use('/task', taskRoutes);
+
+
+module.exports = app;
