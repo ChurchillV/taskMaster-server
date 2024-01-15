@@ -2,17 +2,31 @@ const Project = require('../../Models/Project');
 const User = require('../../Models/User');
 const Task = require('../../Models/Task');
 
-module.exports.GetProjectById = async(req, res) => {
+module.exports.GetTaskById = async(req, res) => {
     try {
+        const taskId = req.params.taskid;
         const projectId = req.params.projectid;
         const userId = req.params.userid;
-
+        
         const user = await User.findOne({ _id : userId });
         const project = await Project.findOne({ _id : projectId });
+        const task = await Task.findOne({
+            $and : 
+                [
+                    { user_id : userId },
+                    { project_id : projectId }
+                ]
+            });
+            
+
+        if(!task) {
+            res.status(404)
+               .json({ messsage : `No task with id ${taskId} found` })
+        }
 
         if(!user) {
             res.status(404)
-               .json({ message : `No user with id ${userId} found`})
+               .json({ message : `No user with id ${userId} found` })
         }
 
         if(!project) {
@@ -20,21 +34,12 @@ module.exports.GetProjectById = async(req, res) => {
                .json({ message : `No project with id ${projectId} found`})
         }
 
-        const tasks = await Task.find({  
-            $and : 
-                [
-                    { user_id : userId },
-                    { project_id : projectId }
-                ] 
-        });
-
-        console.log(`Project ${projectId} of user ${userId} retrieved successfully`);
+        console.log(`Task ${taskId} of user ${userId} retrieved successfully`);
 
         res.status(200)
            .json({
-                message : `Project retrieved successufully`,
-                project : project,
-                tasks : tasks
+                message : `Task retrieved successufully`,
+                task : task,
            });
 
     } catch(error) {
