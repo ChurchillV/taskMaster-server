@@ -20,11 +20,11 @@ const mongoose = require('mongoose');
 const { MONGO_URL } = process.env;
 
 
-// Passport authentication seession initialization
+// Passport authentication session initialization
 app.use(
 	cookieSession({
 		name: "session",
-		keys: ["taskMaster"],
+		keys: ["taskMaster1", "taskMaster2"],
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
