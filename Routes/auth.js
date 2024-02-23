@@ -10,22 +10,16 @@ router.post('/login', Login);
 // auth logout
 router.get('/logout', (req, res) => {
     // handle with passport
+	req.session = null;
     req.logout();
 	console.log("Logged out successfully");
 })
 
-// auth with google
-router.get('/google', passport.authenticate("google"),
-		{ scope : ['email', 'profile']}
-);
+// Google auth
+router.get('/google', 
+	passport.authenticate( 'google'));
 
-router.get('/callback', 
-	passport.authenticate( 'google', {
-		successRedirect: '/auth/callback/success',
-		failureRedirect: '/auth/callback/failure'
-	}));
-
-router.get('/callback/success', (req, res) => {
+router.get('/google/callback', (req, res) => {
 	if(!req.user) {
 		res.redirect('/auth/callback/failure');
 		res.send("Welcome " + req.user.email);

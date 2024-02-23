@@ -1,7 +1,7 @@
 const Project = require('../../Models/Project');
 const mongoose = require('mongoose');
 
-module.exports.GetAllProjects = async (req, res) => {
+module.exports.GetAllProjectsByUserId = async (req, res) => {
   try {
 
     const userId = req.params.userid;
@@ -21,28 +21,26 @@ module.exports.GetAllProjects = async (req, res) => {
           summary: 1,
           taskCount: { $size: '$tasks' },
           tasksToDoCount: {
-            $size: { $filter: { input: '$tasks', cond: { $eq: ['$tasks.status', 'To Do'] } } },
+            $size: { $filter: { input: '$tasks', cond: { $eq: ['$$CURRENT.status', 'To Do'] } } },
           },
           tasksInProgressCount: {
-            $size: { $filter: { input: '$tasks', cond: { $eq: ['$tasks.status', 'In Progress'] } } },
+            $size: { $filter: { input: '$tasks', cond: { $eq: ['$$CURRENT.status', 'In Progress'] } } },
           },
           tasksDoneCount: {
-            $size: { $filter: { input: '$tasks', cond: { $eq: ['$tasks.status', 'Done'] } } },
+            $size: { $filter: { input: '$tasks', cond: { $eq: ['$$CURRENT.status', 'Done'] } } },
           },
-          nextDeadline: {
-            $min: {
-              $cond: {
-                if: { $gt: ['$tasks.due_date', new Date()] },
-                then: '$tasks.due_date',
-                else: null,
-              },
-            },
-          },
+          // nextDeadline: {
+          //   $min: {
+          //     $cond: {
+          //       if: { $and: [{ $exists: ['$tasks.due_date'] }, { $gt: ['$tasks.due_date', new Date()] }] },
+          //       then: '$tasks.due_date',
+          //       else: null,
+          //     },
+          //   },
+          // },
         },
       },
     ]);
-
-    console.log(`Projects for user ${userId} returned successfully`);
     
     res.status(200).json({
       message : `Projects for user ${userId} retrieved successfully`,
